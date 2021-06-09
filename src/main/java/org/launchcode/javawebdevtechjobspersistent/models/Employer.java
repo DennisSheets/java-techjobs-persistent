@@ -1,14 +1,21 @@
 package org.launchcode.javawebdevtechjobspersistent.models;
 
 import javax.persistence.Entity;
-import javax.validation.constraints.NotBlank;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Employer extends AbstractEntity {
 
-    @Size
-    @NotBlank (message="A location is required")
+    //TODO should there be a (mappedBy = "employer") and something for JoinColumn)
+    @OneToMany  // this Employer will have many Jobs
+    @JoinColumn (name = "job")
+    private List<Job> jobs = new ArrayList<>();
+
+    @Size (message="A location is required")
     private String location;
 
     public Employer(){}
