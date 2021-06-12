@@ -19,13 +19,14 @@ public class SkillController {
 
     @GetMapping ("")
     public String displayAllSkills (Model model){
+        model.addAttribute("message", "-- from SkillController - GetMapping('')");
         model.addAttribute("skills",skillRepository.findAll());
-        // TODO "is this the correct return?
         return "skills/index";
     }
 
     @GetMapping("add")
     public String displayAddSkillForm(Model model) {
+        model.addAttribute("message", "-- from SkillController - GetMapping('add')");
         model.addAttribute(new Skill());
         return "skills/add";
     }
@@ -34,9 +35,9 @@ public class SkillController {
     public String processAddEmployerForm(@ModelAttribute @Valid Skill newSkill,
                                          Errors errors, Model model) {
         if (errors.hasErrors()) {
+            model.addAttribute("message", "-- from SkillController - PostMapping('add') - hasErrors");
             return "skills/add";
         }
-        // TODO "Do I need to model a title of something in, or model the updated employerRepository back to the view?"
         skillRepository.save(newSkill);
         return "redirect:";
     }
@@ -44,7 +45,6 @@ public class SkillController {
     @GetMapping("view/{skillId}")
     public String displayViewEmployer(Model model, @PathVariable int skillId) {
 
-        //Optional optSkill = null;
         Optional<Skill> optSkill = skillRepository.findById(skillId);
 
         if (optSkill.isPresent()) {
@@ -52,7 +52,7 @@ public class SkillController {
             model.addAttribute("skill", skill);
             return "skills/view";
         } else {
-            //TODO "missing a lot of the niceties like error messages in titles"
+
             return "redirect:../";
         }
     }

@@ -1,30 +1,26 @@
 package org.launchcode.javawebdevtechjobspersistent.models;
-
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Entity
 public class Job extends AbstractEntity{
 
-    //TODO "allow the @ validation annotations"
-    @ManyToOne  // there will be many jobs for one Employer
+
+    @ManyToOne
     private Employer employer;
 
-    @ManyToMany  // there will be many jobs for each Skill
-    private Skill skills;
+    @ManyToMany
+    private List<Skill> skills = new ArrayList<>();
 
-    public Job() {
-    }
 
-    public Job(Employer anEmployer, Skill someSkills) {
+    public Job(Employer anEmployer) {
         super();
         this.employer = anEmployer;
-        this.skills = someSkills;
     }
 
-    // Getters and setters.
-
+    public Job() {}
 
     public Employer getEmployer() {
         return employer;
@@ -34,11 +30,11 @@ public class Job extends AbstractEntity{
         this.employer = employer;
     }
 
-    public Skill getSkills() {
+    public List<Skill> getSkills() {
         return skills;
     }
 
-    public void setSkills(Skill skills) {
+    public void setSkills(List<Skill> skills) {
         this.skills = skills;
     }
 }

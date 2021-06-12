@@ -1,5 +1,4 @@
 package org.launchcode.javawebdevtechjobspersistent.models;
-
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
@@ -10,8 +9,7 @@ import java.util.List;
 @Entity
 public class Employer extends AbstractEntity {
 
-    //TODO should there be a (mappedBy = "employer") and something for JoinColumn)
-    @OneToMany  // this Employer will have many Jobs
+      @OneToMany  // this Employer will have many Jobs
     @JoinColumn (name = "job")
     private List<Job> jobs = new ArrayList<>();
 

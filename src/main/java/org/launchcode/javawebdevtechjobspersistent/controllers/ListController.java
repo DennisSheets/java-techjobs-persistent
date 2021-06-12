@@ -1,7 +1,11 @@
 package org.launchcode.javawebdevtechjobspersistent.controllers;
 
+import org.launchcode.javawebdevtechjobspersistent.models.Employer;
 import org.launchcode.javawebdevtechjobspersistent.models.Job;
+import org.launchcode.javawebdevtechjobspersistent.models.Skill;
+import org.launchcode.javawebdevtechjobspersistent.models.data.EmployerRepository;
 import org.launchcode.javawebdevtechjobspersistent.models.data.JobRepository;
+import org.launchcode.javawebdevtechjobspersistent.models.data.SkillRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.launchcode.javawebdevtechjobspersistent.models.JobData;
 
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by LaunchCode
@@ -18,6 +23,12 @@ import java.util.HashMap;
 @Controller
 @RequestMapping(value = "list")
 public class ListController {
+
+    @Autowired
+    private EmployerRepository employerRepository;
+
+    @Autowired
+    private SkillRepository skillRepository;
 
     @Autowired
     private JobRepository jobRepository;
@@ -34,6 +45,13 @@ public class ListController {
 
     @RequestMapping("")
     public String list(Model model) {
+        List<Job> jobs = jobRepository.findAll();
+        List<Employer> employers = employerRepository.findAll();
+        List<Skill> skills = skillRepository.findAll();
+
+        model.addAttribute("jobs", jobs);
+        model.addAttribute("employers", employers);
+        model.addAttribute("skills", skills);
 
         return "list";
     }
