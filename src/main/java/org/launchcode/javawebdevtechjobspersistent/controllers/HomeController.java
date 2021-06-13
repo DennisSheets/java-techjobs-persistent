@@ -35,13 +35,11 @@ public class HomeController {
     @RequestMapping
     public String index(Model model) {
         model.addAttribute("jobs", jobRepository.findAll());
-        model.addAttribute("test", "FUCKING TEST");
         return "index.html";
     }
 
     @GetMapping("add")
     public String displayAddJobForm(Model model) {
-        model.addAttribute("message", "-- from HomeController - GetMapping('add')");
         model.addAttribute("title", "Add Job");
         model.addAttribute("employers",employerRepository.findAll());
         model.addAttribute("skills",skillRepository.findAll());
@@ -72,15 +70,16 @@ public class HomeController {
 
     @GetMapping("view/{jobId}")
     public String displayViewJob(Model model, @PathVariable int jobId) {
-        Optional<Job> result = jobRepository.findById(jobId);
-        if(result.isEmpty()){
-            model.addAttribute("message","Invalid Job Id: " + jobId);
-            return "index";
-        }
-        Job job = result.get();
+        Optional<Job> optJob = jobRepository.findById(jobId);
 
-        model.addAttribute("job",job);
-        return "view";
+        if(optJob.isPresent()){
+            Job job = (Job) optJob.get();
+            model.addAttribute("job", job);
+            return "view";
+        }else {
+            model.addAttribute("jobs", jobRepository.findAll());
+            return "index.html";
+        }
     }
 
 
