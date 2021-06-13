@@ -20,7 +20,11 @@
 
 ## Part 4: Test it with SQL
 
-
+        SELECT skill.name, skill.description
+        FROM job_skills
+        INNER JOIN skill ON job_skills.jobs_id = skill.id
+        GROUP BY job_skills.jobs_id
+        ORDER By name ASC
 
 
 ## APP SETUP
@@ -43,7 +47,10 @@ INSERT skill (name, description)
 VALUES  ("Listen","The Ability to calm your mind and hear what's being spoken before evaluating what is said");
 
 INSERT skill (name, description)
-VALUES  ("Self Starter", "THe Ability to create a plan and hold yourself to it without suprevision or oversight");
+VALUES  ("Self Starter", "THe Ability to create a plan and hold yourself to it without supervision or oversight");
+
+INSERT skill (name, description)
+VALUES ("Being Unprepared","The ability to sit on your ass and do nothing, along with an inability to ever come prepared")
 
 INSERT employer (name, location)
 VALUES  ("Sarah's Pony Petters","Wildwood, MO");
