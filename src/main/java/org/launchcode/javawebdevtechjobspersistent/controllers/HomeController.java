@@ -34,6 +34,7 @@ public class HomeController {
 
     @RequestMapping
     public String index(Model model) {
+        model.addAttribute("title", "Tech Jobs!");
         model.addAttribute("jobs", jobRepository.findAll());
         return "index.html";
     }
@@ -75,8 +76,10 @@ public class HomeController {
         if(optJob.isPresent()){
             Job job = (Job) optJob.get();
             model.addAttribute("job", job);
+
             return "view";
         }else {
+            model.addAttribute("title","Invalid Job Id: " + jobId);
             model.addAttribute("jobs", jobRepository.findAll());
             return "index.html";
         }

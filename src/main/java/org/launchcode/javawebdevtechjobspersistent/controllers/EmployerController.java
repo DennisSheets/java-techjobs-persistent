@@ -18,6 +18,7 @@ public class EmployerController {
 
     @GetMapping ("")
     public String displayAllEmployers (Model model){
+        model.addAttribute("title", "Employers");
         model.addAttribute("employers",employerRepository.findAll());
         return "employers/index";
     }
@@ -48,6 +49,8 @@ public class EmployerController {
             model.addAttribute("employer", employer);
             return "employers/view";
         } else {
+            model.addAttribute("errMessage","Invalid Employer Id: " + employerId);
+            model.addAttribute("employers",employerRepository.findAll());
             return "redirect:../";
         }
     }

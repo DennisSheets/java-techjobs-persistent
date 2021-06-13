@@ -11,7 +11,7 @@ import java.util.Objects;
 public abstract class AbstractEntity {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Size(min=3,message="'name' must contain at least 5 characters")
